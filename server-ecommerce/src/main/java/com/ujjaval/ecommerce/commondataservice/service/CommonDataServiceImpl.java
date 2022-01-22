@@ -19,7 +19,6 @@ import org.javatuples.Pair;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -60,6 +59,7 @@ public class CommonDataServiceImpl implements CommonDataService {
         // for eg ?q=brand=1::
         queryParams = queryParams.concat("::");
         String[] separatedConditions = queryParams.split("::");
+        System.out.println("separatedConditions: " + Arrays.toString(separatedConditions));
 
         if (separatedConditions.length > 0) {
             HashMap<String, String> conditionMap = new HashMap<>();
@@ -74,9 +74,11 @@ public class CommonDataServiceImpl implements CommonDataService {
         return null;
     }
 
-//    @Cacheable(key = "#apiName", value = "mainScreenResponse")
-    public MainScreenResponse getHomeScreenData(String apiName) {
+    public HomeTabsDataResponse getBrandsAndApparelsByGender(String apiName) {
+        return productInfoRepository.getBrandsAndApparelsByGender();
+    }
 
+    public MainScreenResponse getHomeScreenData(String apiName) {
         List<BrandImages> brandList = brandImagesRepository.getAllData();
         Type listType = new TypeToken<List<BrandImagesDTO>>() {
         }.getType();
@@ -92,7 +94,6 @@ public class CommonDataServiceImpl implements CommonDataService {
         return new MainScreenResponse(brandDTOList, apparelDTOList, carouselList);
     }
 
-//    @Cacheable(key = "#queryParams", value = "filterAttributesResponse")
     public FilterAttributesResponse getFilterAttributesByProducts(String queryParams) {
         HashMap<String, String> conditionMap = getConditionMapFromQuery(queryParams);
 
@@ -138,15 +139,6 @@ public class CommonDataServiceImpl implements CommonDataService {
         }
 
         return resultMap;
-    }
-
-//    @Cacheable(key = "#apiName", value = "homeTabsDataResponse")
-    public HomeTabsDataResponse getBrandsAndApparelsByGender(String apiName) {
-        return productInfoRepository.getBrandsAndApparelsByGender();
-    }
-
-    public List<ApparelImages> getABC(){
-        return apparelImagesRepository.getAllData();
     }
 
     public SearchSuggestionResponse getSearchSuggestionList() {

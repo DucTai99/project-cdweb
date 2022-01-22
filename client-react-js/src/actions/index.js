@@ -37,6 +37,7 @@ import {
   DEFAULT_SEARCH_SUGGESTION_API,
   SEARCH_SUGGESTION_API,
 } from "../constants/api_routes";
+import { toast } from "react-toastify";
 
 export const setAuthDetailsFromCookie = (savedResponse) => {
   log.info(`[ACTION]: setTokenFromCookie savedResponse = ${savedResponse}`);
@@ -76,6 +77,10 @@ export const signIn = (formValues) => async (dispatch) => {
 
   if (response) {
     if (response.data.jwt) {
+      toast.success("Sign In Successful!", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
       log.info(
         `[ACTION]: dispatch HANDLE_SIGN_IN response.data.jwt = ${response.data.jwt}`
       );

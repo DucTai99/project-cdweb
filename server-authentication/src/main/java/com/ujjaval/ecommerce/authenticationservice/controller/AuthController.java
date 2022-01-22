@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Base64;
 
 @RestController
@@ -76,13 +77,13 @@ public class AuthController {
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(
             @RequestHeader(value = "Authorization") String headerData) {
-
+        System.out.println(headerData);
         AuthenticationRequest authenticationRequest = new AuthenticationRequest();
         String[] data = headerData.split(" ");
         byte[] decoded = Base64.getDecoder().decode(data[1]);
         String decodedStr = new String(decoded, StandardCharsets.UTF_8);
         data = decodedStr.split(":");
-
+        System.out.println("data: " + Arrays.toString(data));
         authenticationRequest.setUsername(data[0]);
         authenticationRequest.setPassword(data[1]);
 
@@ -100,11 +101,11 @@ public class AuthController {
         }
 
         final UserDetails userDetails = customUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-
         final String jwt = jwtTokenUtil.generateToken(userDetails);
+        System.out.println("JWT: " + jwt);
 
         UserInfo userInfo = authDataService.findByUsername(authenticationRequest.getUsername());
-
+        System.out.println("userinfo: " + userInfo);
         return ResponseEntity.ok(new AuthenticationResponse(jwt, null, userInfo.getFirstName()));
     }
 }

@@ -23,9 +23,6 @@ import java.util.Objects;
 @RestController
 public class CommonDataController {
 
-//    @Autowired
-//    Environment environment;
-
     @Autowired
     CommonDataService commonDataService;
 
@@ -51,12 +48,6 @@ public class CommonDataController {
         }
 
         return ResponseEntity.ok(resultMap);
-    }
-
-    @GetMapping("/")
-    public ResponseEntity<?> test(){
-        List<ApparelImages> list = commonDataService.getABC();
-        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/home")

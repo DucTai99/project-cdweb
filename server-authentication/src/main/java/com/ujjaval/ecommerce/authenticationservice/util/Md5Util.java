@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Md5Util {
 
     public static Md5Util singletonInstance = null;
-    private String data;
+//    private String data;
 
     private Md5Util() {
     }

@@ -15,16 +15,15 @@ public interface CommonDataService {
 
     MainScreenResponse getHomeScreenData(String apiName);
 
+    HomeTabsDataResponse getBrandsAndApparelsByGender(String apiName);
+
     FilterAttributesResponse getFilterAttributesByProducts(String queryParams);
 
     ProductInfoDTO getProductsByCategories(String queryParams);
 
     HashMap<Integer, ProductInfo> getProductsById(String queryParams);
 
-    HomeTabsDataResponse getBrandsAndApparelsByGender(String apiName);
-
     SearchSuggestionResponse getSearchSuggestionList();
 
-    List<ApparelImages> getABC();
 }
 

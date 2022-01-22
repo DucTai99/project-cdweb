@@ -11,5 +11,5 @@ public interface GenderCategoryRepository extends JpaRepository<GenderCategory, 
     @Query(value = "SELECT g FROM GenderCategory g")
     List<GenderCategory> getAllData();
 
-    GenderCategory findByType(String gender);
+//    GenderCategory findByType(String gender);
 }

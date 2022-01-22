@@ -11,5 +11,5 @@ public interface SortByCategoryRepository extends JpaRepository<SortByCategory, 
     @Query(value = "SELECT s FROM SortByCategory s")
     List<SortByCategory> getAllData();
 
-    SortByCategory findByType(String type);
+//    SortByCategory findByType(String type);
 }
